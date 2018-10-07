@@ -1,3 +1,38 @@
-<p>
-  home works!
-</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+  <br>
+    <table class="table table-bordered" *ngIf="users.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.salary | currency:'L.E' }}</td>
+            <td>
+              <a [routerLink]="['/add']" class="btn btn-secondary a-btn-slide-text">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span><strong>Add</strong></span>            
+              </a>
+              <a [routerLink]="['/edit']" [queryParams]="{q: user.id}" class="btn btn-primary a-btn-slide-text">
+                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                  <span><strong>Edit</strong></span>            
+              </a>
+              <a href="#" (click)="deleteUser(user.id)" class="btn btn-danger a-btn-slide-text">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <span><strong>Delete</strong></span>            
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>

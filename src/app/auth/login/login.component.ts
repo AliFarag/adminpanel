@@ -24,9 +24,12 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.auth.logout();
+
     this.loginForm = this.formBuider.group({
-      user_name: ['user_name', Validators.required],
-      password: ['password', Validators.required]
+      user_name: ['', Validators.required],
+      password: ['', Validators.required]
     });
 
     // get current url
@@ -40,7 +43,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     // check if form is valid
-    if (this.loginFormControl.invalid) {
+    if (this.loginForm.invalid) {
       return false;
     }
     this.loading = false;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  title: string;
+  users: User[];
+
+  constructor(private _userService: AuthenticationService) { }
 
   ngOnInit() {
+    this.title = 'Admin panel';
+    this.getAllUsers();
+  }
+
+  getAllUsers() {
+    this._userService.getUsersList().subscribe(usersList => this.users = usersList);
   }
 
 }
