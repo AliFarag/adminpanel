@@ -1,13 +1,16 @@
-  <form [formGroup]="addUserForm" (ngSubmit)="addUser()">
+<div class="alert alert-success" *ngIf="submitted && updateRes">User updated successfully.</div>
+<div class="alert alert-danger" *ngIf="submitted && !updateRes">Fail to update customer.</div>
+<form [formGroup]="editUserForm" (ngSubmit)="editUser()">
     <div class="form-group">
       <label for="firstName" class="col-2 col-form-label">First Name</label>
       <div class="col-10">
         <input type="text" id="firstName" class="form-control"
           formControlName="firstName"
           placeholder="First Name"
+          [(ngModel)]="currentDetails.firstName"
         >
-        <div *ngIf="submitted && addUserFormControl.firstName.errors" class="alert alert-danger">
-          <div *ngIf="addUserFormControl.firstName.errors.required">
+        <div *ngIf="submitted && editUserFormControl.firstName.errors" class="alert alert-danger">
+          <div *ngIf="editUserFormControl.firstName.errors.required">
             First name is required.
           </div>
         </div>
@@ -18,9 +21,10 @@
       <div class="col-10">
         <input type="text" id="lastName" class="form-control" placeholder="Last Name"
           formControlName="lastName"
+          [(ngModel)]="currentDetails.lastName"
         >
-        <div *ngIf="submitted && addUserFormControl.lastName.errors" class="alert alert-danger">
-          <div *ngIf="addUserFormControl.lastName.errors.required">
+        <div *ngIf="submitted && editUserFormControl.lastName.errors" class="alert alert-danger">
+          <div *ngIf="editUserFormControl.lastName.errors.required">
             Last name is required.
           </div>
         </div>
@@ -31,12 +35,13 @@
       <div class="col-10">
         <input type="text" id="email" class="form-control" placeholder="Email"
           formControlName="email"
+          [(ngModel)]="currentDetails.email"
         >
-        <div *ngIf="submitted && addUserFormControl.email.errors" class="alert alert-danger">
-          <div *ngIf="addUserFormControl.email.errors.required">
+        <div *ngIf="submitted && editUserFormControl.email.errors" class="alert alert-danger">
+          <div *ngIf="editUserFormControl.email.errors.required">
             Email is required.
           </div>
-          <div *ngIf="addUserFormControl.email.errors.email">
+          <div *ngIf="editUserFormControl.email.errors.email">
             Please enter valid email.
           </div>
         </div>
@@ -47,46 +52,27 @@
       <div class="col-10">
         <input type="text" id="username" class="form-control" placeholder="User Name"
           formControlName="username"
+          [(ngModel)]="currentDetails.userName"
         >
-        <div *ngIf="submitted && addUserFormControl.username.errors" class="alert alert-danger">
-          <div *ngIf="addUserFormControl.username.errors.required">
+        <div *ngIf="submitted && editUserFormControl.username.errors" class="alert alert-danger">
+          <div *ngIf="editUserFormControl.username.errors.required">
             User name is required.
           </div>
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="password" class="col-2 col-form-label">Password</label>
+      <label for="salary" class="col-2 col-form-label">Salary</label>
       <div class="col-10">
-        <input type="password" id="password" class="form-control" placeholder="User Password"
-          formControlName="password"
+        <input type="text" id="salary" class="form-control" placeholder="Salary"
+          formControlName="salary"
+          [(ngModel)]="currentDetails.salary"
         >
-        <div *ngIf="submitted && addUserFormControl.password.errors" class="alert alert-danger">
-          <div *ngIf="addUserFormControl.password.errors.required">
-            Password is required.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="confirmPassword" class="col-2 col-form-label">Confirm Password</label>
-      <div class="col-10">
-        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password"
-          formControlName="confirmPassword"
-        >
-        <div *ngIf="submitted && addUserFormControl.confirmPassword.errors" class="alert alert-danger">
-          <div *ngIf="addUserFormControl.confirmPassword.errors.required">
-            Confirm password is required.
-          </div>
-          <div *ngIf="addUserFormControl.confirmPassword.errors?.MatchPassword">
-            Confirm password not matched.
-          </div>
-        </div>
       </div>
     </div>
     <div class="form-group">
       <div class="col-12">
-        <button type="submit" [disabled]="loading" class="btn btn-primary">Add User</button>
+        <button type="submit" [disabled]="loading" class="btn btn-primary">edit User</button>
         <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
       </div>
     </div>

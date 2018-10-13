@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -13,6 +13,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { DetailsUserComponent } from './details-user/details-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AddUserComponent } from './add-user/add-user.component';
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    AddUserComponent
+    AddUserComponent,
+    DetailsUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

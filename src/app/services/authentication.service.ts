@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 
@@ -64,6 +64,29 @@ export class AuthenticationService {
 
   getUsersList() {
     return of(this.users);
+  }
+
+  getUserDetails(id: number): Observable<User> {
+    const userDetails = this.users.find( user => user.id === id);
+    return of(userDetails);
+  }
+
+  updateUserInfo(userData): boolean {
+    let userDetails: User = this.users.find( user => user.id === userData.id);
+    if (userDetails) {
+      userDetails = userData;
+      return true;
+    }
+    return false;
+  }
+
+  deleteUser(userId: number): boolean {
+    const userDetailsIndex: number = this.users.findIndex( user => user.id === userId);
+    if (userDetailsIndex > -1) {
+      this.users.splice(userDetailsIndex, 1);
+      return true;
+    }
+    return false;
   }
 
   // user logout
